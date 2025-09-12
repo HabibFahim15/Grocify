@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-white shadow-md fixed top-0 left-0 right-0">
       <nav className="max-w-[1440px] mx-auto px-6 md:px-10 h-[14vh] flex items-center justify-between">
         {/* Logo */}
         <a className="text-3xl font-bold" href="#">
