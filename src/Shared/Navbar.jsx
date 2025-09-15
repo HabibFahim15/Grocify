@@ -1,13 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoHeartFill } from "react-icons/go";
 import { HiShoppingBag } from "react-icons/hi2";
-import { IoSearch, IoMenu, IoClose } from "react-icons/io5";
+import { IoClose, IoMenu, IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="bg-white shadow-md fixed top-0 left-0 right-0">
+    <header
+      className={`bg-white  fixed top-0 left-0 right-0 z-50 ${
+        isScrolled ? "drop-shadow-[0_4px_25px_rgba(0,0,0,0.1)]" : null
+      }`}
+    >
       <nav className="max-w-[1440px] mx-auto px-6 md:px-10 h-[14vh] flex items-center justify-between">
         {/* Logo */}
         <a className="text-3xl font-bold" href="#">
@@ -85,7 +106,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-white shadow-md">
-          <ul className="flex flex-col items-center gap-y-5 py-6">
+          <ul className="flex flex-col items-center gap-y-5 py-6 shadow-lg">
             <li>
               <a
                 className="font-semibold text-zinc-800 hover:text-orange-600"
